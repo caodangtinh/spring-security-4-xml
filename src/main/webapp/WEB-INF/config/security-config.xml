@@ -17,26 +17,37 @@
 		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 	</sec:http>
 	<sec:authentication-manager>
-		<sec:authentication-provider>
+		<sec:authentication-provider user-service-ref="jdbcDaoImpl">
+			<!-- JDBC authentication using datasoure-->
+			<!-- 
+			<sec:jdbc-user-service data-source-ref="dataSource"/>
+			 -->
 			<!-- In-Memory authentication -->
+			<!-- 
 			<sec:user-service>
 				<sec:user name="tinhcao" password="tinhcao" authorities="ROLE_USER" />
 				<sec:user name="kua" password="kua" authorities="ROLE_USER" />
-				<sec:user name="oc" password="oc" authorities="ROLE_USER"/>
+				<sec:user name="oc" password="oc" authorities="ROLE_USER" />
 			</sec:user-service>
+			 -->
 		</sec:authentication-provider>
 	</sec:authentication-manager>
+
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/springsec" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
-	<bean class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource"></property>
+
+	<!-- JDBC Dao Impl for Spring security -->
+	<bean id="jdbcDaoImpl"
+		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
+	<!-- Flyway -->
 	<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
-		<property name="dataSource" ref="dataSource"/>
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 </beans>
  
