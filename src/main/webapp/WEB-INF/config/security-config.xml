@@ -18,6 +18,9 @@
 	</sec:http>
 	<sec:authentication-manager>
 		<sec:authentication-provider user-service-ref="jdbcDaoImpl">
+			<!-- Password Encoder -->
+			<sec:password-encoder hash="bcrypt"/>
+			
 			<!-- JDBC authentication using datasoure-->
 			<!-- 
 			<sec:jdbc-user-service data-source-ref="dataSource"/>
