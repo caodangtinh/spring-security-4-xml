@@ -15,6 +15,10 @@
 	<context:property-placeholder location="classpath:database.properties" />
 	<sec:http auto-config="true">
 		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+		<!-- Basic Login Form -->
+		<!-- <sec:http-basic/> -->
+		<sec:form-login login-page="/login.html"/>
+		<sec:intercept-url pattern="/login.html" access="hasRole('ANONYMOUS')"/>
 	</sec:http>
 	<sec:authentication-manager>
 		<sec:authentication-provider user-service-ref="jdbcDaoImpl">
