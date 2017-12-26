@@ -13,12 +13,17 @@
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<context:property-placeholder location="classpath:database.properties" />
+	<sec:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
 	<sec:http auto-config="true">
-		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
-		<!-- Basic Login Form -->
-		<!-- <sec:http-basic/> -->
-		<sec:form-login login-page="/login.html"/>
 		<sec:intercept-url pattern="/login.html" access="hasRole('ANONYMOUS')"/>
+		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+		<!-- <sec:http-basic/> -->
+		
+		<!-- Basic Login Form -->
+		<!-- 
+		<sec:form-login login-page="/login.html" login-processing-url=""/>
+		 -->
+		 <sec:logout logout-url="/logout" logout-success-url="/"/>
 	</sec:http>
 	<sec:authentication-manager>
 		<sec:authentication-provider user-service-ref="jdbcDaoImpl">

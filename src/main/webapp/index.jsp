@@ -1,4 +1,5 @@
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -51,7 +52,7 @@
             today.
           </p>
         </div>
-        <security:authorize access="hasAnyRole('ROLE_ADMIN')">
+        <security:authorize access="hasAnyRole('ROLE_USER')">
 	        <a class="btn btn-primary" href="addGoal.html">
 	          Add Goal »
 	        </a>
@@ -59,6 +60,10 @@
         
         <a class="btn btn-primary" href="addMinutes.html">
           Add Exercise Minutes »
+        </a>
+        <c:url value="/logout" var="logoutUrl" />
+        <a class="btn btn-primary" href="${logoutUrl}">
+          Logout
         </a>
       </div>
       <div>
